@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adivinador de Nombre</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { 
+      height: 100vh; 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      background: url('https://www.w3schools.com/w3images/forest.jpg') no-repeat center center fixed; 
+      background-size: cover;
+      font-family: 'Courier New', Courier, monospace; 
+      color: white; 
+    }
+    .container { 
+      text-align: center; 
+      max-width: 600px;
+      background: rgba(0, 0, 0, 0.7); 
+      padding: 40px;
+      border-radius: 15px;
+    }
+    #adivinar-btn { 
+      padding: 20px 40px; 
+      font-size: 24px; 
+      background-color: #8e44ad; 
+      color: white; 
+      border: none; 
+      cursor: pointer; 
+      border-radius: 10px; 
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
+      transition: all 0.3s ease;
+    }
+    #adivinar-btn:hover {
+      background-color: #9b59b6;
+      transform: scale(1.05);
+    }
+    #progress-container { 
+      margin-top: 30px; 
+      width: 80%; 
+      height: 30px; 
+      background-color: #34495e; 
+      border-radius: 5px; 
+      overflow: hidden; 
+      display: none;
+    }
+    #progress-bar { 
+      height: 100%; 
+      width: 0%; 
+      background-color: #2ecc71; 
+      text-align: center; 
+      line-height: 30px; 
+      color: white; 
+      font-weight: bold;
+    }
+    #messages { 
+      margin-top: 20px; 
+      font-size: 20px; 
+      color: #ecf0f1;
+      font-weight: bold;
+    }
+    #result { 
+      font-size: 28px; 
+      font-weight: bold; 
+      margin-top: 20px; 
+      color: #e74c3c;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <button id="adivinar-btn">Adivinar Nombre</button>
+    <div id="progress-container">
+      <div id="progress-bar">0%</div>
+    </div>
+    <div id="messages"></div>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const button = document.getElementById('adivinar-btn');
+    const progressBar = document.getElementById('progress-bar');
+    const progressContainer = document.getElementById('progress-container');
+    const messages = document.getElementById('messages');
+    const result = document.getElementById('result');
+
+    const messageList = [
+      "Analizando señales cognitivas...",
+      "Psico sincronizando mentes...",
+      "Habilitando conexión mental...",
+      "Descubriendo patrones ocultos...",
+      "Ajustando frecuencias cerebrales...",
+      "Realizando diagnóstico mental...",
+      "Conectando cerebro a red cósmica...",
+      "Sincronizando ondas cerebrales...",
+      "Último paso en proceso psíquico..."
+    ];
+
+    button.addEventListener('click', () => {
+      button.disabled = true; // Deshabilita el botón para evitar clics repetidos
+      progressContainer.style.display = 'block'; // Muestra la barra de carga
+      let progress = 0;
+      let messageIndex = 0;
+
+      // Inicializa los mensajes
+      messages.textContent = messageList[messageIndex];
+
+      // Simula el progreso de la barra de carga
+      const interval = setInterval(() => {
+        if (progress < 100) {
+          progress += 1;
+          progressBar.style.width = progress + '%';
+          progressBar.textContent = progress + '%';
+          
+          if (progress % 10 === 0 && messageIndex < messageList.length - 1) {
+            messageIndex++;
+            messages.textContent = messageList[messageIndex];
+          }
+        } else {
+          clearInterval(interval);
+          setTimeout(() => {
+            result.textContent = "Tu nombre es el que escogieron tus padres.";
+            result.style.display = 'block';
+          }, 500); // Espera medio segundo antes de mostrar el resultado
+        }
+      }, 100); // 100ms para simular un progreso más lento
+    });
+  </script>
+</body>
+</html>
